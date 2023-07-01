@@ -19,31 +19,32 @@ def factorize_input(n):
     return None
 
 
-def main(file_input):
+def main():
     """ a function that reads the input file and performs factorization.
     """
+    if len(sys.argv) != 2:
+        print("Usage: factors <file>")
+        exit(1)
+
+    file_input = sys.argv[1]
+
     try:
         with open(file_input, 'r') as file:
             start_time = time.time()
             for line in file:
-                n = int(line)
+                n = int(line.strip())
                 f = factorize_input(n)
                 if f:
-                    print(f"{n}={f[0]}*{f[1]}")
+                    print(f"{n}={f[1]}*{f[0]}")
 
     except FileNotFoundError:
-        print("Error: File {} not found".format(file_input))
-        exit()
+        print("File not found")
+        exit(1)
 
     if time.time() - start_time > 5:
-        print("Error: Time Limit exceeded")
-        exit()
+        print("Time Limit exceeded")
+        exit(1)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: factors <file>")
-        exit()
-
-    file_input = sys.argv[1]
-    main(file_input)
+    main()
