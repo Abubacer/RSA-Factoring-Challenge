@@ -1,0 +1,47 @@
+#!/usr/bin/python3
+import sys
+
+
+def factorize_input(n):
+    """ a function that takes a number.
+
+    Args:
+        n (int): the input number.
+
+    Return:
+        the two factors of the number.
+    """
+    if n % 2 == 0:
+        return (2, n // 2)
+
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return (i, n // i)
+
+    return None
+
+
+def main():
+    """ a function that reads the input file and performs factorization.
+    """
+    if len(sys.argv) != 2:
+        print("Usage: factors <file>")
+        sys.exit(1)
+
+    file_input = sys.argv[1]
+
+    try:
+        with open(file_input, 'r') as file:
+            for line in file:
+                n = int(line.strip())
+                f = factorize_input(n)
+                if f:
+                    print(f"{n}={f[1]}*{f[0]}")
+
+    except FileNotFoundError:
+        print("Error: File not found")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

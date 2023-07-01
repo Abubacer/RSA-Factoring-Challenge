@@ -12,6 +12,26 @@ class NumberFactorizer:
         """
         self.n = n
 
+    def is_prime(self, num):
+        """ Check if a number is prime.
+
+        Args:
+            num (int): the number to check.
+
+        Returns:
+            True if it is a prime number, otherwise False.
+        """
+        if num <= 1 or num % 2 == 0:
+            return False
+        if num == 2:
+            return True
+        i = 3
+        while i * i <= num:
+            if num % i == 0:
+                return False
+            i += 2
+        return True
+
     def pollardsRho(self):
         """ Find prime factor of a number using Pollard's rho algorithm.
 
@@ -45,7 +65,10 @@ class NumberFactorizer:
             return None
 
         q = self.n // p
-        return (p, q)
+        if self.is_prime(p) and self.is_prime(q):
+            return (p, q)
+        else:
+            return None
 
     def hcf(self, x, y):
         """ Calculate the hest common factor (hcf) of two numbers.
@@ -66,20 +89,19 @@ def main():
     """ Read and factorize the number inside the input file.
     """
     if len(sys.argv) != 2:
-        print("Usage: factors <file>")
+        print("Usage: rsa <file>")
         sys.exit(1)
     try:
         file_input = sys.argv[1]
         with open(file_input, 'r') as file:
-            for line in file:
-                n = int(line.strip())
-                factorizer = NumberFactorizer(n)
-                num_factors = factorizer.factorize_number()
-                if num_factors:
-                    p, q = num_factors
-                    print(f"{n}={p}*{q}")
-                else:
-                    print("No prime factors found")
+            n = int(file.readline().strip())
+            factorizer = NumberFactorizer(n)
+            num_factors = factorizer.factorize_number()
+            if num_factors:
+                p, q = num_factors
+                print(f"{n}={p}*{q}")
+            else:
+                print("No prime factors found")
 
     except FileNotFoundError:
         print("Error: File not found")
