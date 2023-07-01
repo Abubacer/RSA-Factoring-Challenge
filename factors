@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import argparse
+import sys
 import math
 import time
 
@@ -45,14 +45,9 @@ def main(file_input):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        prog='factors <file>',
-        description='Factorize numbers from a file'
-    )
-    parser.add_argument(
-        'file',
-        help='a file containing natural numbers to factor'
-    )
+    if len(sys.argv) != 2:
+        print("Usage: factors <file>")
+        exit()
 
-    args = parser.parse_args()
-    main(args.file)
+    file_input = sys.argv[1]
+    main(file_input)
