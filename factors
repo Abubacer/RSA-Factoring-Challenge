@@ -1,26 +1,46 @@
 #!/usr/bin/python3
 import argparse
+import math
+import time
 
 
-def fact_number(n):
-    # a function that Factorizes as many numbers as possible
-    # into a product of two smaller numbers.
-    for i in range(2, int(n**0.5) + 1):
+def factorize_input(n):
+    """ a function that takes a number.
+
+    Args:
+        n (int): the input number.
+
+    Return:
+        the two factors of the number.
+    """
+    factor1 = 1
+    factor2 = n
+    for i in range(2, math.isqrt(n) + 1):
         if n % i == 0:
-            return (i, n // i)
-    return None
+            factor1 = i
+            factor2 = n // i
+            break
+
+    return factor1, factor2
 
 
 def main(file_input):
+    """ a function that reads the input file and performs factorization.
+    """
     try:
         with open(file_input, 'r') as file:
+            start_time = time.time()
             for line in file:
                 n = int(line)
-                factr = fact_number(n)
-                if factr:
-                    print(f"{n}={factr[0]}*{factr[1]}")
+                factor1, factor2 = factorize_input(n)
+                print(f"{n}={factor2}*{factor1}")
+
     except FileNotFoundError:
         print("Error: File {} not found".format(file_input))
+        exit()
+
+    if time.time() - start_time > 5:
+        print("Error: Time Limit exceeded")
         exit()
 
 
