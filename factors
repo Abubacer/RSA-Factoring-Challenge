@@ -12,54 +12,17 @@ class NumberFactorizer:
         """
         self.n = n
 
-    def pollardsRho(self):
-        """ Find prime factor of a number using Pollard's rho algorithm.
-
-        Returns:
-            int: the prime factor, or None if no factor is found.
-        """
-        x = 2
-        y = 2
-        d = 1
-
-        func = lambda x: (x * x + 1) % self.n
-
-        while d == 1:
-            x = func(x)
-            y = func(func(y))
-            d = self.hcf(abs(x - y), self.n)
-
-        if d == self.n:
-            return None
-        else:
-            return d
-
     def factorize_number(self):
         """ Factorize the given number into its two prime factors.
 
         Returns:
             tuple: as a tuple (p, q), the two prime factors.
         """
-        p = self.pollardsRho()
-        if p is None:
-            return None
+        for i in range(2, int(self.n**0.5) + 1):
+            if self.n % i == 0:
+                return i, self.n // i
 
-        q = self.n // p
-        return (p, q)
-
-    def hcf(self, x, y):
-        """ Calculate the hest common factor (hcf) of two numbers.
-
-        Args:
-            x (int): the first number.
-            y (int): the seconde number.
-
-        Returns:
-            int: the hcf
-        """
-        while y != 0:
-            x, y = y, x % y
-        return x
+        return None
 
 
 def main():
@@ -78,8 +41,6 @@ def main():
                 if num_factors:
                     p, q = num_factors
                     print(f"{n}={q}*{p}")
-                else:
-                    print("No prime factors found")
 
     except FileNotFoundError:
         print("Error: File not found")
