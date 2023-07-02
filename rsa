@@ -73,7 +73,7 @@ class NumberFactorizer:
             return None
 
     def hcf(self, x, y):
-        """ Calculate the hest common factor (hcf) of two numbers.
+        """ Calculate the highest common factor (hcf) of two numbers.
 
         Args:
             x (int): the first number.
