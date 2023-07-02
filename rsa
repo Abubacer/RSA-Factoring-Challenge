@@ -21,10 +21,12 @@ class NumberFactorizer:
         Returns:
             True if it is a prime number, otherwise False.
         """
-        if num <= 1 or num % 2 == 0:
+        if num <= 1:
             return False
         if num == 2:
             return True
+        if num % 2 == 0:
+            return False
         i = 3
         while i * i <= num:
             if num % i == 0:

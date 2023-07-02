@@ -77,7 +77,7 @@ def main():
                 num_factors = factorizer.factorize_number()
                 if num_factors:
                     p, q = num_factors
-                    print(f"{n}={p}*{q}")
+                    print(f"{n}={q}*{p}")
                 else:
                     print("No prime factors found")
 
